@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Playfair Display';
+  --font-body: 'IBM Plex Sans';
+  --font-mono: 'IBM Plex Mono';
+
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --navy: #0A0E1A;
+  --navy-mid: #111827;
+  --navy-light: #1C2740;
+  --slate: #8A9BB5;
+  --white: #F0EDE8;
+  --red: #C0392B;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--navy);
+  color: var(--white);
+  font-family: var(--font-body), sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.3;
+}
+
+.gold-text {
+  color: var(--gold);
+}
+
+.gold-border {
+  border-color: var(--gold);
+}
+
+/* Classified stamp effect */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(201, 168, 76, 0); }
+}
+
+.animate-fade-up {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-fade-up-delay-1 { animation: fadeInUp 0.8s 0.2s ease both; }
+.animate-fade-up-delay-2 { animation: fadeInUp 0.8s 0.4s ease both; }
+.animate-fade-up-delay-3 { animation: fadeInUp 0.8s 0.6s ease both; }
+.animate-fade-up-delay-4 { animation: fadeInUp 0.8s 0.8s ease both; }
+.animate-fade-up-delay-5 { animation: fadeInUp 0.8s 1.0s ease both; }
+
+.pulse-gold {
+  animation: pulse-gold 2s infinite;
+}
+
+input, select, textarea {
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+.classified-bar {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--red) 0px,
+    var(--red) 20px,
+    #1a0000 20px,
+    #1a0000 40px
+  );
+}
+
+.ticket-bg {
+  background: linear-gradient(135deg, #0F1626 0%, #1C2740 50%, #0A0E1A 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.ticket-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(201,168,76,0.05) 0%, transparent 60%);
+}
